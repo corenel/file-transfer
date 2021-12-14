@@ -9,6 +9,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_definitions(-Wall -Wextra -Wno-unused-parameter -O2)
 
+find_package(fmt REQUIRED)
+find_package(absl REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(MINIOCPP REQUIRED miniocpp)
 
@@ -20,7 +22,14 @@ file(GLOB_RECURSE src_files ${PROJECT_SOURCE_DIR}/cpp/src/*.cc)
 
 # add library
 add_library(${PROJECT_NAME} SHARED ${src_files})
-target_link_libraries(${PROJECT_NAME} ${MINIOCPP_LIBRARIES})
+target_link_libraries(
+    ${PROJECT_NAME}
+    ${MINIOCPP_LIBRARIES}
+    absl::time
+    absl::flags
+    absl::flags_parse
+    fmt::fmt
+    )
 target_include_directories(${PROJECT_NAME} PUBLIC ${MINIOCPP_INCLUDE_DIRS})
 
 # add executable
