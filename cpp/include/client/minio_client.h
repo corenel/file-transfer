@@ -1,3 +1,5 @@
+#pragma once
+
 #include <miniocpp/s3.h>
 
 #include "interface/base_client.h"
@@ -30,7 +32,7 @@ class MinioClient : protected BaseClient {
               const std::string& remote_filename) override;
   bool Exists(const std::string& remote_dir) override;
 
-private:
+ private:
   std::string GetEndpoint();
 
  private:
