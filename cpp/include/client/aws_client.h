@@ -1,15 +1,15 @@
 #pragma once
 
-#include <miniocpp/s3.h>
+#include <aws/s3/S3Client.h>
 
 #include "interface/base_client.h"
 
 namespace ftrans {
 
-class MinioClient : protected BaseClient {
+class AwsClient : protected BaseClient {
  public:
-  MinioClient(const ClientConfig& config, const bool& secure = true);
-  ~MinioClient();
+  AwsClient(const ClientConfig& config, const bool& secure = true);
+  ~AwsClient();
 
  public:
   void Connect() override;
@@ -34,11 +34,8 @@ class MinioClient : protected BaseClient {
   bool Exists(const std::string& remote_dir) override;
 
  private:
-  std::string GetEndpoint();
-
- private:
   bool secure_;
-  std::shared_ptr<S3Client> s3_;
+  std::shared_ptr<Aws::S3::S3Client> s3_;
 };
 
 }  // namespace ftrans

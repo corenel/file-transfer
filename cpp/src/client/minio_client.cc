@@ -4,10 +4,12 @@
 
 namespace ftrans {
 
-MinioClient::MinioClient(const ClientConfig& config, const bool secure)
+MinioClient::MinioClient(const ClientConfig& config, const bool& secure)
     : BaseClient(config), secure_(secure) {
   Connect();
 }
+
+MinioClient::~MinioClient() { Disconnect(); }
 
 void MinioClient::Connect() {
   s3_ = std::make_shared<S3Client>(GetEndpoint(), config_.access_key,

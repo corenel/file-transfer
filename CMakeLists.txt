@@ -11,6 +11,7 @@ add_definitions(-Wall -Wextra -Wno-unused-parameter -O2)
 
 find_package(fmt REQUIRED)
 find_package(absl REQUIRED)
+find_package(AWSSDK REQUIRED COMPONENTS s3 transfer)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(MINIOCPP REQUIRED miniocpp)
 
@@ -25,6 +26,7 @@ add_library(${PROJECT_NAME} SHARED ${src_files})
 target_link_libraries(
     ${PROJECT_NAME}
     ${MINIOCPP_LIBRARIES}
+    ${AWSSDK_LINK_LIBRARIES}
     absl::time
     absl::flags
     absl::flags_parse
